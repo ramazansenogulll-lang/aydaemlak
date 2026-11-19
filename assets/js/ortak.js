@@ -78,7 +78,7 @@
     ust.className = "ust";
     const link = (h, y, k) => `<a href="${h}"${sayfa === k ? ' class="aktif" aria-current="page"' : ""}>${y}</a>`;
     ust.innerHTML = `<div class="kap">
-      <a class="logo" href="index.html">${LOGO}<span>${esc(A.firma)}</span></a>
+      <a class="logo" href="index.html" aria-label="${esc(A.firma)} ana sayfa"><img src="assets/img/ayda-emlak-logo.png" width="194" height="56" alt="${esc(A.firma)}"></a>
       <nav class="menu" id="menu" aria-label="Ana menü">
         ${link("index.html", "Ana sayfa", "ana")}
         ${link("ilanlar.html?tip=satilik", "Satılık", "satilik")}
@@ -103,7 +103,7 @@
     const alt = document.createElement("footer");
     alt.className = "alt-bilgi"; alt.id = "iletisim";
     alt.innerHTML = `<div class="kap">
-      <div><b>${esc(A.firma)}</b><p>${esc(A.slogan)}</p><p>${esc(A.adres)}</p>${A.haritaLink ? `<a href="${esc(A.haritaLink)}" target="_blank" rel="noopener">Haritada gör →</a>` : ""}</div>
+      <div><img class="alt-logo" src="assets/img/ayda-emlak-logo.png" width="194" height="56" alt="${esc(A.firma)}" loading="lazy"><p>${esc(A.slogan)}</p><p>${esc(A.adres)}</p>${A.haritaLink ? `<a href="${esc(A.haritaLink)}" target="_blank" rel="noopener">Haritada gör →</a>` : ""}</div>
       <div><b>İlanlar</b><a href="ilanlar.html?tip=satilik">Satılık ilanlar</a><a href="ilanlar.html?tip=kiralik">Kiralık ilanlar</a>
         <a href="ilanlar.html?kategori=tarla">Tarlalar</a><a href="makaleler.html">Makaleler</a></div>
       <div><b>İletişim</b><a href="tel:${esc(A.telefonLink)}">${esc(A.telefon)}</a>${A.telefon2 ? `<a href="tel:${esc(A.telefon2Link)}">${esc(A.telefon2)}</a>` : ""}

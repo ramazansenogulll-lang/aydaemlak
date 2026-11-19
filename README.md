@@ -32,4 +32,4 @@ Eski WordPress adresleri (`/özellikler/...`, `/about-us/` vb.) klasörlerdeki `
 Depoyu GitHub'a yükleyin, ardından **Settings → Pages → Deploy from a branch → main / (root)** seçin. Alan adı için `CNAME` dosyası ekleyin.
 
 ## Firma adını değiştirmek
-`config.js` içindeki `firma` alanı menüyü ve alt bilgiyi değiştirir. HTML dosyalarının `<title>` satırlarındaki "Yuva Emlak" yazısını da değiştirin.
+`config.js` içindeki `firma` alanı menüyü ve alt bilgiyi değiştirir. Logo dosyaları `assets/img/` içindedir: `ayda-emlak-logo.png` (sitede), `ayda-emlak-logo-seffaf.png`, `ayda-emlak-logo-beyaz.png`, `ayda-emlak-logo-siyah.png` (baskı ve sosyal medya için).
