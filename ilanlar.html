@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1f4e5f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2710%27 fill=%27%231f4e5f%27/%3E%3Cpath d=%27M9 20 20 11l11 9v10a1 1 0 0 1-1 1h-6v-7h-8v7h-6a1 1 0 0 1-1-1z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>İlanlar | Yuva Emlak</title>
+<meta name="description" content="Satılık ve kiralık daire, villa, arsa ve işyeri ilanları; konuma, fiyata ve oda sayısına göre filtreleyin.">
+<script>document.documentElement.dataset.tip = new URLSearchParams(location.search).get("tip") || "";</script>
+</head>
+<body data-sayfa="liste">
+<script>if (document.documentElement.dataset.tip) document.body.dataset.sayfa = document.documentElement.dataset.tip;</script>
+<main>
+<div class="sayfa-bas"><div class="kap"><h1 id="baslik">İlanlar</h1></div></div>
+<div class="kap liste-duzen">
+  <form class="filtre" id="filtre" aria-label="İlan filtreleri">
+    <div><label for="f-q">Kelime</label><input id="f-q" name="q" type="text" placeholder="Örn. deniz manzaralı"></div>
+    <div><label for="f-tip">İlan tipi</label><select id="f-tip" name="tip"><option value="">Hepsi</option><option value="satilik">Satılık</option><option value="kiralik">Kiralık</option></select></div>
+    <div><label for="f-kat">Emlak türü</label><select id="f-kat" name="kategori"><option value="">Hepsi</option><option value="daire">Daire</option><option value="villa">Villa / Müstakil</option><option value="arsa">Arsa</option><option value="isyeri">İşyeri</option></select></div>
+    <div class="iki">
+      <div><label for="f-il">İl</label><input id="f-il" name="il" type="text"></div>
+      <div><label for="f-ilce">İlçe</label><input id="f-ilce" name="ilce" type="text"></div>
+    </div>
+    <div><label for="f-oda">Oda sayısı</label><select id="f-oda" name="oda"><option value="">Hepsi</option><option>1+0</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option><option>5+1</option></select></div>
+    <div><label>Fiyat (₺)</label><div class="iki"><input name="min" type="number" min="0" placeholder="En az" aria-label="En az fiyat"><input name="max" type="number" min="0" placeholder="En çok" aria-label="En çok fiyat"></div></div>
+    <input type="hidden" name="sira" id="f-sira-gizli">
+    <button type="button" class="btn btn-cizgi" id="temizle">Filtreleri temizle</button>
+  </form>
+  <div>
+    <div class="liste-ust"><b id="sayi">…</b>
+      <label class="sr" for="sira">Sıralama</label>
+      <select id="sira"><option value="">En yeni</option><option value="fiyat-artan">Fiyat (düşükten yükseğe)</option><option value="fiyat-azalan">Fiyat (yüksekten düşüğe)</option></select>
+    </div>
+    <div class="izgara" id="sonuc"></div>
+  </div>
+</div>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/js/ornek.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/ortak.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var s = document.getElementById("sira"), g = document.getElementById("f-sira-gizli"), f = document.getElementById("filtre");
+  s.value = new URLSearchParams(location.search).get("sira") || "";
+  s.addEventListener("change", function () { g.value = s.value; f.dispatchEvent(new Event("change")); });
+});
+</script>
+<script src="assets/js/vitrin.js"></script>
+</body>
+</html>

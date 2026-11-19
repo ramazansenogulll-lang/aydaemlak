@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1f4e5f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2710%27 fill=%27%231f4e5f%27/%3E%3Cpath d=%27M9 20 20 11l11 9v10a1 1 0 0 1-1 1h-6v-7h-8v7h-6a1 1 0 0 1-1-1z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>Satılık ve Kiralık Ev, Daire, Arsa İlanları | Yuva Emlak</title>
+<meta name="description" content="Satılık ve kiralık daire, villa, arsa ve işyeri ilanları. İlanları inceleyin, beğendiğiniz ev için hemen arayın.">
+</head>
+<body data-sayfa="ana">
+<main>
+<section class="hero">
+  <div class="kap">
+    <h1>Aradığınız ev, bir telefon uzağınızda</h1>
+    <p>Satılık ve kiralık daire, villa, arsa ve işyeri ilanlarını inceleyin; beğendiğiniz ilan için bizi arayın, yerinde gösterelim.</p>
+    <form class="arama" id="arama" action="ilanlar.html" method="get">
+      <div class="tip-sec" role="group" aria-label="İlan tipi">
+        <button type="button" class="aktif" data-tip="satilik">Satılık</button>
+        <button type="button" data-tip="kiralik">Kiralık</button>
+      </div>
+      <input type="hidden" name="tip" value="satilik">
+      <div class="arama-satir">
+        <div><label for="a-q" class="sr">Konum veya anahtar kelime</label><input id="a-q" name="q" placeholder="İl, ilçe, mahalle veya kelime"></div>
+        <div><label for="a-kat" class="sr">Emlak türü</label>
+          <select id="a-kat" name="kategori"><option value="">Tüm türler</option><option value="daire">Daire</option><option value="villa">Villa / Müstakil</option><option value="arsa">Arsa</option><option value="isyeri">İşyeri</option></select></div>
+        <div><label for="a-oda" class="sr">Oda sayısı</label>
+          <select id="a-oda" name="oda"><option value="">Oda sayısı</option><option>1+0</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option><option>5+1</option></select></div>
+        <button class="btn btn-vurgu" type="submit">İlan ara</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="kap">
+    <div class="bolum-bas"><div><span class="ust-yazi">Vitrin</span><h2>Öne çıkan ilanlar</h2></div><a class="btn btn-cizgi" href="ilanlar.html">Tüm ilanlar</a></div>
+    <div class="izgara" id="one-cikanlar"><div class="bos">Yükleniyor…</div></div>
+  </div>
+</section>
+
+<section class="gri">
+  <div class="kap">
+    <div class="bolum-bas"><div><span class="ust-yazi">Kategoriler</span><h2>Ne arıyorsunuz?</h2></div></div>
+    <div class="kategoriler">
+      <a class="kat-kart" href="ilanlar.html?kategori=daire"><span data-ikon="ev"></span><b>Daire</b><span data-say="daire">–</span></a>
+      <a class="kat-kart" href="ilanlar.html?kategori=villa"><span data-ikon="villa"></span><b>Villa / Müstakil</b><span data-say="villa">–</span></a>
+      <a class="kat-kart" href="ilanlar.html?kategori=arsa"><span data-ikon="arsa"></span><b>Arsa</b><span data-say="arsa">–</span></a>
+      <a class="kat-kart" href="ilanlar.html?kategori=isyeri"><span data-ikon="isyeri"></span><b>İşyeri</b><span data-say="isyeri">–</span></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kap">
+    <div class="bolum-bas"><div><span class="ust-yazi">Nasıl çalışıyoruz</span><h2>Ev bulmak bu kadar kolay</h2></div></div>
+    <div class="neden">
+      <div><span data-ikon="sohbet"></span><h3>İhtiyacınızı dinleriz</h3><p>Bütçenizi, istediğiniz bölgeyi ve oda sayısını konuşur, size uygun ilanları ayırırız.</p></div>
+      <div><span data-ikon="anahtar"></span><h3>Yerinde gösteririz</h3><p>Beğendiğiniz evleri sizin için uygun saatte birlikte gezer, sorularınızı yanıtlarız.</p></div>
+      <div><span data-ikon="kalkan"></span><h3>Süreci takip ederiz</h3><p>Pazarlıktan tapu ya da kira sözleşmesine kadar adımları sizinle birlikte yürütürüz.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="kap">
+    <div class="cagri">
+      <div><h2>Evinizi satmak veya kiraya vermek mi istiyorsunuz?</h2><p>Arayın, evinizi görelim ve ilanınızı birlikte hazırlayalım.</p></div>
+      <a class="btn btn-vurgu" id="cagri-tel" href="#">Hemen arayın</a>
+    </div>
+  </div>
+</section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/js/ornek.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/ortak.js"></script>
+<script src="assets/js/vitrin.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("[data-ikon]").forEach(function (s) { s.outerHTML = E.I[s.dataset.ikon]; });
+  var t = document.getElementById("cagri-tel"); t.href = "tel:" + E.A.telefonLink; t.textContent = E.A.telefon;
+  document.querySelector(".hero h1").textContent = E.A.slogan;
+});
+</script>
+</body>
+</html>
