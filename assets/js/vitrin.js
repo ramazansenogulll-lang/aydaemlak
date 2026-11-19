@@ -20,7 +20,7 @@
       if (l.length < 3) l = await Veri.liste({ limit: 6 });
       kutu.innerHTML = l.length ? l.map(kart).join("") : `<div class="bos">Henüz ilan eklenmedi.</div>`;
       const say = await Veri.liste({});
-      const s = k => say.filter(x => x.kategori === k).length;
+      const s = k => { const [a, b] = k.includes("-") ? k.split("-") : [null, k]; return say.filter(x => x.kategori === b && (!a || x.tip === a)).length; };
       document.querySelectorAll("[data-say]").forEach(el => { el.textContent = s(el.dataset.say) + " ilan"; });
     } catch (e) { hataGoster(kutu, e); }
   }
@@ -39,7 +39,7 @@
       Object.keys(f).forEach(k => { if (!f[k]) delete f[k]; });
       history.replaceState(null, "", "?" + new URLSearchParams(f).toString());
       const parca = [f.tip ? TIP[f.tip] : "", f.kategori ? KAT[f.kategori] : "İlanlar"].filter(Boolean).join(" ");
-      bas.textContent = (f.il ? f.il + " " : "") + parca;
+      bas.textContent = (f.ilce || "Çardak") + " " + parca;
       document.title = bas.textContent + " | " + A.firma;
       kutu.innerHTML = `<div class="bos">Yükleniyor…</div>`;
       try {
@@ -67,6 +67,7 @@
       return;
     }
     document.title = x.baslik + " | " + A.firma;
+    const can = document.createElement("link"); can.rel = "canonical"; can.href = "https://aydaemlak.com.tr/ilan.html?id=" + encodeURIComponent(x.id); document.head.appendChild(can);
     const md = document.querySelector('meta[name="description"]');
     if (md) md.content = `${TIP[x.tip] || ""} ${KAT[x.kategori] || ""}, ${konumYazi(x)} — ${para(x.fiyat)}`;
 

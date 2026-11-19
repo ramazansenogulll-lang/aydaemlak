@@ -31,14 +31,18 @@
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
-  function guvenliSrc(u) { u = String(u || ""); return /^(https:|data:image\/|blob:)/.test(u) ? esc(u) : ""; }
+  function guvenliSrc(u) { u = String(u || ""); return /^(https:|data:image\/|blob:|assets\/)/.test(u) ? esc(u) : ""; }
   function para(n) { return n == null || n === "" ? "Fiyat sorunuz" : new Intl.NumberFormat("tr-TR").format(n) + " ₺"; }
   const TIP = { satilik: "Satılık", kiralik: "Kiralık" };
-  const KAT = { daire: "Daire", villa: "Villa / Müstakil", arsa: "Arsa", isyeri: "İşyeri" };
+  const KAT = { daire: "Daire", villa: "Müstakil ev / Villa", arsa: "Arsa", tarla: "Tarla", isyeri: "İşyeri" };
+  function bosGorsel(k) {
+    const s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"><rect width="800" height="500" fill="#f3ece0"/><path d="M0 330 Q200 290 400 320 T800 300 V500 H0Z" fill="#d9c9a8"/><path d="M0 390 Q300 350 800 380 V500 H0Z" fill="#c9b48a"/><text x="400" y="230" text-anchor="middle" font-family="sans-serif" font-size="34" font-weight="700" fill="#9a6f22">${k === "tarla" ? "Tarla" : "Fotoğraf yakında"}</text></svg>`;
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
+  }
   function konumYazi(x) { return [x.mahalle, x.ilce, x.il].filter(Boolean).join(", "); }
 
   function kart(x) {
-    const foto = (x.fotograflar && x.fotograflar[0]) || "";
+    const foto = (x.fotograflar && x.fotograflar[0]) || bosGorsel(x.kategori);
     const ozet = [];
     if (x.oda) ozet.push(`<span>${I.oda}${esc(x.oda)}</span>`);
     if (x.net_m2 || x.brut_m2) ozet.push(`<span>${I.m2}${esc(x.net_m2 || x.brut_m2)} m²</span>`);
@@ -55,6 +59,9 @@
       </div></a>`;
   }
 
+  function makaleKart(m) {
+    return `<a class="makale-kart" href="${esc(m.slug)}.html"><small>${esc(m.etiket)}</small><h3>${esc(m.baslik)}</h3><p>${esc(m.ozet)}</p><span>Okumaya devam et →</span></a>`;
+  }
   function bildir(mesaj, hata) {
     const d = document.createElement("div");
     d.className = "bildirim" + (hata ? " hata" : "");
@@ -63,7 +70,7 @@
     setTimeout(() => d.remove(), 3200);
   }
 
-  const LOGO = `<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#1f4e5f"/><path d="M9 20 20 11l11 9v10a1 1 0 0 1-1 1h-6v-7h-8v7h-6a1 1 0 0 1-1-1z" fill="#fff"/><circle cx="29" cy="12" r="4" fill="#e07a3f"/></svg>`;
+  const LOGO = `<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2c27a"/><stop offset="1" stop-color="#9a6f22"/></linearGradient></defs><path d="M30 4a20 20 0 1 0 14 30A17 17 0 1 1 30 4z" fill="url(#lg)"/><path d="M15 27 25 18l10 9v9H15z" fill="url(#lg)"/><rect x="23" y="29" width="4" height="7" fill="#fff"/><rect x="30" y="17" width="3" height="6" fill="url(#lg)"/></svg>`;
 
   function kabuk() {
     const sayfa = document.body.dataset.sayfa;
@@ -76,13 +83,14 @@
         ${link("index.html", "Ana sayfa", "ana")}
         ${link("ilanlar.html?tip=satilik", "Satılık", "satilik")}
         ${link("ilanlar.html?tip=kiralik", "Kiralık", "kiralik")}
+        ${link("makaleler.html", "Makaleler", "makale")}
         ${link("index.html#iletisim", "İletişim", "iletisim")}
         ${link("panel.html", "Ofis girişi", "panel")}
       </nav>
       <button class="menu-ac" aria-label="Menüyü aç" aria-controls="menu" aria-expanded="false">${I.menu}</button>
       <a class="tel" href="tel:${esc(A.telefonLink)}">${I.tel}<span>${esc(A.telefon)}</span></a></div>`;
     document.body.prepend(ust);
-    if (Veri.mod === "demo") {
+    if (Veri.mod === "demo" && !location.pathname.includes("/makale")) {
       const s = document.createElement("div");
       s.className = "demo-serit";
       s.textContent = "Demo modu: ilanlar yalnızca bu tarayıcıda saklanıyor. Gerçek kullanım için config.js'e Supabase bilgilerini girin.";
@@ -95,10 +103,10 @@
     const alt = document.createElement("footer");
     alt.className = "alt-bilgi"; alt.id = "iletisim";
     alt.innerHTML = `<div class="kap">
-      <div><b>${esc(A.firma)}</b><p>${esc(A.slogan)}</p><p>${esc(A.adres)}</p></div>
+      <div><b>${esc(A.firma)}</b><p>${esc(A.slogan)}</p><p>${esc(A.adres)}</p>${A.haritaLink ? `<a href="${esc(A.haritaLink)}" target="_blank" rel="noopener">Haritada gör →</a>` : ""}</div>
       <div><b>İlanlar</b><a href="ilanlar.html?tip=satilik">Satılık ilanlar</a><a href="ilanlar.html?tip=kiralik">Kiralık ilanlar</a>
-        <a href="ilanlar.html?kategori=arsa">Arsalar</a><a href="ilanlar.html?kategori=isyeri">İşyerleri</a></div>
-      <div><b>İletişim</b><a href="tel:${esc(A.telefonLink)}">${esc(A.telefon)}</a>
+        <a href="ilanlar.html?kategori=tarla">Tarlalar</a><a href="makaleler.html">Makaleler</a></div>
+      <div><b>İletişim</b><a href="tel:${esc(A.telefonLink)}">${esc(A.telefon)}</a>${A.telefon2 ? `<a href="tel:${esc(A.telefon2Link)}">${esc(A.telefon2)}</a>` : ""}
         ${A.eposta ? `<a href="mailto:${esc(A.eposta)}">${esc(A.eposta)}</a>` : ""}<span>${esc(A.calismaSaatleri)}</span></div>
       <div class="telif"><span>© ${new Date().getFullYear()} ${esc(A.firma)}</span><a href="panel.html">Ofis girişi</a></div></div>`;
     document.body.appendChild(alt);
@@ -110,6 +118,6 @@
     }
   }
 
-  window.E = { A, I, esc, guvenliSrc, para, TIP, KAT, konumYazi, kart, bildir, kabuk };
+  window.E = { A, I, esc, guvenliSrc, para, TIP, KAT, konumYazi, kart, bildir, kabuk, bosGorsel, makaleKart };
   document.addEventListener("DOMContentLoaded", kabuk);
 })();

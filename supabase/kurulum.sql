@@ -8,7 +8,7 @@ create table if not exists public.ilanlar (
   baslik       text not null,
   aciklama     text default '',
   tip          text not null default 'satilik' check (tip in ('satilik','kiralik')),
-  kategori     text not null default 'daire'   check (kategori in ('daire','villa','arsa','isyeri')),
+  kategori     text not null default 'daire'   check (kategori in ('daire','villa','arsa','tarla','isyeri')),
   fiyat        numeric,
   il           text, ilce text, mahalle text,
   oda          text,

@@ -4,7 +4,7 @@
   const kok = () => document.getElementById("kok");
   const DURUM = { yayinda: "Yayında", taslak: "Taslak", pasif: "Satıldı / Pasif" };
   const OZELLIK = ["Asansör", "Otopark", "Kapalı otopark", "Balkon", "Teras", "Bahçe", "Havuz", "Güvenlik", "Site içinde",
-    "Ankastre mutfak", "Ebeveyn banyosu", "Giyinme odası", "Şömine", "Jeneratör", "Çocuk parkı", "Spor salonu",
+    "Ankastre mutfak", "Doğalgaz", "Dış cephe yalıtımı", "Ebeveyn banyosu", "Giyinme odası", "Şömine", "Jeneratör", "Çocuk parkı", "Spor salonu",
     "Deniz manzarası", "Doğa manzarası", "Metroya yakın", "Okula yakın", "Krediye uygun", "Takasa uygun", "Kiracılı", "Depo", "Vitrin"];
 
   let kullanici = null;
@@ -15,6 +15,7 @@
     kok().innerHTML = `<div class="giris-kap"><form class="giris-kutu" id="giris">
       <h1 style="font-size:1.5rem;margin:0">Ofis paneli</h1>
       <p style="margin:0;color:var(--soluk)">İlan eklemek ve düzenlemek için giriş yapın.</p>
+      ${Veri.mod === "statik" ? `<div class="uyari">Panel henüz etkin değil. Supabase kurulumu tamamlanınca bu ekrandan giriş yapılacak.</div>` : ""}
       ${Veri.mod === "demo" ? `<div class="uyari">Demo modu: herhangi bir e-posta ve şifreyle girebilirsiniz. Gerçek kullanımda yalnızca Supabase'de tanımladığınız ofis hesapları girebilir.</div>` : ""}
       ${mesaj ? `<div class="uyari hata">${esc(mesaj)}</div>` : ""}
       <div><label for="g-e">E-posta</label><input id="g-e" name="email" type="email" autocomplete="username" required value="${Veri.mod === "demo" ? "ofis@ornek.com" : ""}"></div>
@@ -114,7 +115,7 @@
   /* ---------- İlan formu ---------- */
   async function formEkrani(id) {
     const ic = document.getElementById("ic");
-    let x = { tip: "satilik", kategori: "daire", durum: "yayinda", ozellikler: [], fotograflar: [] };
+    let x = { tip: "satilik", kategori: "daire", durum: "yayinda", il: "Denizli", ilce: "Çardak", ozellikler: [], fotograflar: [] };
     if (id) {
       ic.innerHTML = `<div class="bos">Yükleniyor…</div>`;
       try { x = await Veri.getir(id); } catch (e) { x = null; }
@@ -125,7 +126,7 @@
     const v = k => esc(x[k] == null ? "" : x[k]);
     const sec = (ad, secenek, deger) => `<select id="i-${ad}" name="${ad}">${secenek.map(([d, t]) => `<option value="${esc(d)}"${String(deger || "") === d ? " selected" : ""}>${esc(t)}</option>`).join("")}</select>`;
     const odalar = ["", "1+0", "1+1", "2+1", "3+1", "4+1", "5+1", "6+1"].map(o => [o, o || "—"]);
-    const isitma = ["", "Doğalgaz (kombi)", "Merkezi", "Yerden ısıtma", "Klima", "Soba", "Yok"].map(o => [o, o || "—"]);
+    const isitma = ["", "Doğalgaz", "Doğalgaz (kombi)", "Merkezi", "Yerden ısıtma", "Klima", "Soba", "Yok"].map(o => [o, o || "—"]);
 
     ic.innerHTML = `<div class="panel-bas"><h1>${id ? "İlanı düzenle" : "Yeni ilan"}</h1></div>
     <form class="kutu" id="ilan-form" novalidate>

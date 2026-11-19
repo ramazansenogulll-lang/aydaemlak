@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2b241b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2710%27 fill=%27%232b241b%27/%3E%3Cpath d=%27M9 20 20 11l11 9v10a1 1 0 0 1-1 1h-6v-7h-8v7h-6a1 1 0 0 1-1-1z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>Çardak Emlak Rehberi – Makaleler | Ayda Emlak</title>
+<meta name="description" content="Çardak'ta ev, daire ve tarla alırken, satarken veya kiralarken bilmeniz gerekenler: Ayda Emlak'tan rehber yazılar.">
+<link rel="canonical" href="https://aydaemlak.com.tr/makaleler.html">
+</head>
+<body data-sayfa="makale">
+<main>
+<div class="sayfa-bas"><div class="kap"><h1>Çardak emlak rehberi</h1><p style="margin:.4em 0 0;color:var(--soluk)">Çardak'ta ev alırken, satarken ve kiralarken işinize yarayacak yazılar.</p></div></div>
+<section><div class="kap"><div class="makale-izgara" id="tum"></div></div></section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/js/ilanlar-veri.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/ortak.js"></script>
+<script src="assets/js/makaleler.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () { document.getElementById("tum").innerHTML = MAKALELER.map(E.makaleKart).join(""); });</script>
+</body>
+</html>

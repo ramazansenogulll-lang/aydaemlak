@@ -1,4 +1,4 @@
-# Emlak teması (ofis panelli)
+# Ayda Emlak — aydaemlak.com.tr (ofis panelli site)
 
 GitHub Pages'te çalışan statik emlak sitesi. İlanlar, giriş ve fotoğraflar ücretsiz **Supabase** üzerinde tutulur.
 
@@ -8,8 +8,15 @@ GitHub Pages'te çalışan statik emlak sitesi. İlanlar, giriş ve fotoğraflar
 - `panel.html`: ofis paneli (giriş, ilan ekle/düzenle/sil, öne çıkar, durum, fotoğraf yükleme)
 - `assets/js/config.js`: firma adı, telefon, WhatsApp, Supabase bilgileri. **Düzenlemeniz gereken tek dosya bu.**
 
-## Demo modu
-`config.js` içinde `supabaseUrl` boşsa site demo modunda çalışır. Örnek ilanlar görünür, panel her e-posta ve şifreyle açılır. Kayıtlar yalnızca o tarayıcıda saklanır. Bu mod müşteriye göstermek içindir, gerçek kullanım için değildir.
+## Supabase kurulmadan önce
+`config.js` içinde `supabaseUrl` boşsa site, eski WordPress sitesinden aktarılan 18 ilanı (`assets/js/ilanlar-veri.js`, fotoğraflar `assets/ilanlar/`) gösterir; panel kapalıdır.
+`demo: true` yapılırsa panel denenebilir, değişiklikler yalnızca o tarayıcıda kalır.
+
+## Makaleler
+6 makale kök dizinde ayrı HTML sayfalarıdır; liste `assets/js/makaleler.js` içindedir. Yeni makale eklerken bir makale sayfasını kopyalayıp metni değiştirin, listeye ve `sitemap.xml`'e ekleyin.
+
+## Eski adresler
+Eski WordPress adresleri (`/özellikler/...`, `/about-us/` vb.) klasörlerdeki `index.html` dosyalarıyla yeni sayfalara yönlendirilir.
 
 ## Supabase kurulumu (bir kez, yaklaşık 10 dakika)
 1. supabase.com'da ücretsiz hesap açın ve **New project** oluşturun (bölge: Frankfurt).
@@ -18,7 +25,8 @@ GitHub Pages'te çalışan statik emlak sitesi. İlanlar, giriş ve fotoğraflar
 4. **Authentication → Users → Add user → Create new user** ile ofis hesabını (e-posta + şifre) ekleyin. **Auto confirm** işaretli olsun.
 5. **Project Settings → API** sayfasındaki **Project URL** ve **anon public** anahtarını `assets/js/config.js` içine yazın.
    (anon anahtarının sitede görünmesi normaldir; yetkiler SQL'deki kurallarla korunur. `service_role` anahtarını **asla** buraya yazmayın.)
-6. Siteyi açın, `panel.html` adresinden giriş yapıp ilk ilanınızı ekleyin.
+6. **SQL Editor**'de `supabase/ilanlar.sql` dosyasını da çalıştırın; eski siteden aktarılan 18 ilan veritabanına yüklenir (fotoğrafları sitedeki `assets/ilanlar/` klasöründen gelir).
+7. Siteyi açın, `panel.html` adresinden giriş yapıp ilanları yönetin.
 
 ## GitHub Pages
 Depoyu GitHub'a yükleyin, ardından **Settings → Pages → Deploy from a branch → main / (root)** seçin. Alan adı için `CNAME` dosyası ekleyin.

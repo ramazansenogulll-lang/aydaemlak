@@ -70,20 +70,22 @@
   let mem = null;
   function demoDb() {
     if (mem) return mem;
-    try { const s = localStorage.getItem(KEY); if (s) { mem = JSON.parse(s); return mem; } } catch (e) {}
+    if (A.demo) try { const s = localStorage.getItem(KEY); if (s) { mem = JSON.parse(s); return mem; } } catch (e) {}
     mem = { ilanlar: window.EMLAK_ORNEK ? window.EMLAK_ORNEK() : [], oturum: null };
-    demoKaydet();
+    if (A.demo) demoKaydet();
     return mem;
   }
   function demoKaydet() {
+    if (!A.demo) throw new Error("Panel kapalı: Supabase kurulumu yapılmadı.");
     try { localStorage.setItem(KEY, JSON.stringify(mem)); }
     catch (e) { throw new Error("Tarayıcı depolama alanı doldu. Demo modunda daha az fotoğraf yükleyin."); }
   }
   function yeniId() { return Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4); }
 
   const Demo = {
-    async oturum() { const d = demoDb(); return d.oturum ? { id: "demo", email: d.oturum } : null; },
+    async oturum() { const d = demoDb(); return A.demo && d.oturum ? { id: "demo", email: d.oturum } : null; },
     async girisYap(email, sifre) {
+      if (!A.demo) throw new Error("Panel henüz etkin değil. Supabase kurulumu yapılınca giriş açılır (README.md).");
       if (!email || !sifre) throw new Error("E-posta ve şifre girin.");
       demoDb().oturum = email; demoKaydet(); return { id: "demo", email };
     },
@@ -171,6 +173,6 @@
     }
   };
 
-  window.Veri = Object.assign({ mod: supaHazir ? "supabase" : "demo" }, supaHazir ? Supa : Demo);
+  window.Veri = Object.assign({ mod: supaHazir ? "supabase" : A.demo ? "demo" : "statik" }, supaHazir ? Supa : Demo);
   window.Veri.sifirla = Demo.sifirla;
 })();
