@@ -15,8 +15,8 @@ window.EMLAK_AYAR = {
   telefon2Link: "+905453197453",
   whatsapp: "905449069815",           // boş bırakılırsa WhatsApp düğmesi gizlenir
   eposta: "info@aydaemlak.com.tr",
-  adres: "Cumhuriyet Mah., Adnan Menderes Blv. No:108/A, 20350 Çardak / Denizli",
-  haritaLink: "https://www.google.com/maps/search/?api=1&query=Ayda+Emlak+Adnan+Menderes+Blv.+108%2FA+%C3%87ardak+Denizli",
+  adres: "Hürriyet Mah., Jandarma Sk., Hükümet Konağı arkası No:8/A, 20350 Çardak / Denizli",
+  haritaLink: "https://www.google.com/maps/search/?api=1&query=Ayda+Emlak+H%C3%BCrriyet+Mah.+Jandarma+Sk.+8%2FA+%C3%87ardak+Denizli",
   calismaSaatleri: "Pzt – Cmt · 09:00 – 19:00",
 
   demo: false,
