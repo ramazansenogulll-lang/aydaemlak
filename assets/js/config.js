@@ -20,7 +20,7 @@ window.EMLAK_AYAR = {
   calismaSaatleri: "Pzt – Cmt · 09:00 – 19:00",
 
   demo: false,
-  supabaseUrl: "",                    // ör. https://abcdefgh.supabase.co
-  supabaseAnonKey: "",                // Project Settings → API → anon public
+  supabaseUrl: "https://iuelwlutkbxagfllbdak.supabase.co",                    // ör. https://abcdefgh.supabase.co
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1ZWx3bHV0a2J4YWdmbGxiZGFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxNDkzNzAsImV4cCI6MjExMDcyNTM3MH0.xRGzxRmaiVO86uCwTG2oBKvlvKPbNRyoUSUMKDf7YAs",                // Project Settings → API → anon public
   fotoBucket: "ilan-fotolari"
 };
