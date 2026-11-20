@@ -173,6 +173,15 @@
     }
   };
 
+  /* Supabase'e ulaşılamazsa (ör. ücretsiz proje uykuya geçtiyse) vitrin yedek ilan dosyasından gösterilir. */
+  if (supaHazir) ["liste", "getir"].forEach(fn => {
+    const asil = Supa[fn];
+    Supa[fn] = async (...a) => {
+      try { return await asil(...a); }
+      catch (e) { if (!window.EMLAK_ORNEK) throw e; console.warn("Supabase erişilemedi, yedek ilanlar gösteriliyor:", e.message); return Demo[fn](...a); }
+    };
+  });
+
   window.Veri = Object.assign({ mod: supaHazir ? "supabase" : A.demo ? "demo" : "statik" }, supaHazir ? Supa : Demo);
   window.Veri.sifirla = Demo.sifirla;
 })();
