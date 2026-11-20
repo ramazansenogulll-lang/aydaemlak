@@ -34,6 +34,11 @@ create trigger ilan_guncellendi before update on public.ilanlar for each row exe
 
 alter table public.ilanlar enable row level security;
 
+-- Data API erişimi (yeni projelerde tablolar otomatik açılmıyor)
+grant usage on schema public to anon, authenticated;
+grant select on public.ilanlar to anon;
+grant select, insert, update, delete on public.ilanlar to authenticated;
+
 drop policy if exists "herkes yayindakileri gorur" on public.ilanlar;
 create policy "herkes yayindakileri gorur" on public.ilanlar
   for select using (durum = 'yayinda' or auth.role() = 'authenticated');
